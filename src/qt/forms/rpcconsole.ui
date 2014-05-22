@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Litecoin - Debug window</string>
+   <string>SaturnCoin - Debug window</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -36,7 +36,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Litecoin Core</string>
+          <string>Bitcoin Core</string>
          </property>
         </widget>
        </item>
@@ -89,7 +89,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
-          <string>Using OpenSSL version</string>
+          <string>OpenSSL version</string>
          </property>
          <property name="indent">
           <number>10</number>
@@ -315,14 +315,14 @@
           </font>
          </property>
          <property name="text">
-          <string>Debug log file</string>
+          <string>Debug logfile</string>
          </property>
         </widget>
        </item>
        <item row="15" column="0">
         <widget class="QPushButton" name="openDebugLogfileButton">
          <property name="toolTip">
-          <string>Open the Litecoin debug log file from the current data directory. This can take a few seconds for large log files.</string>
+          <string>Open the SaturnCoin debug logfile from the current data directory. This can take a few seconds for large logfiles.</string>
          </property>
          <property name="text">
           <string>&amp;Open</string>
@@ -348,10 +348,13 @@
        <item row="17" column="0">
         <widget class="QPushButton" name="showCLOptionsButton">
          <property name="toolTip">
-          <string>Show the Litecoin-Qt help message to get a list with possible Litecoin command-line options.</string>
+          <string>Show the SaturnCoin-Qt help message to get a list with possible SaturnCoin command-line options.</string>
          </property>
          <property name="text">
           <string>&amp;Show</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
          </property>
          <property name="autoDefault">
           <bool>false</bool>

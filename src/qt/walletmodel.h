@@ -1,13 +1,7 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
 #ifndef WALLETMODEL_H
 #define WALLETMODEL_H
 
 #include <QObject>
-#include <vector>
-#include <map>
 
 #include "allocators.h" /* for SecureString */
 
@@ -15,12 +9,6 @@ class OptionsModel;
 class AddressTableModel;
 class TransactionTableModel;
 class CWallet;
-class CKeyID;
-class CPubKey;
-class COutput;
-class COutPoint;
-class uint256;
-class CCoinControl;
 
 QT_BEGIN_NAMESPACE
 class QTimer;
@@ -38,7 +26,6 @@ public:
 class WalletModel : public QObject
 {
     Q_OBJECT
-
 public:
     explicit WalletModel(CWallet *wallet, OptionsModel *optionsModel, QObject *parent = 0);
     ~WalletModel();
@@ -66,8 +53,8 @@ public:
     OptionsModel *getOptionsModel();
     AddressTableModel *getAddressTableModel();
     TransactionTableModel *getTransactionTableModel();
-    
-    qint64 getBalance(const CCoinControl *coinControl=NULL) const;
+
+    qint64 getBalance() const;
     qint64 getUnconfirmedBalance() const;
     qint64 getImmatureBalance() const;
     int getNumTransactions() const;
@@ -79,7 +66,7 @@ public:
     // Return status record for SendCoins, contains error id + information
     struct SendCoinsReturn
     {
-        SendCoinsReturn(StatusCode status=Aborted,
+        SendCoinsReturn(StatusCode status,
                          qint64 fee=0,
                          QString hex=QString()):
             status(status), fee(fee), hex(hex) {}
@@ -89,7 +76,7 @@ public:
     };
 
     // Send coins to a list of recipients
-    SendCoinsReturn sendCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl=NULL);
+    SendCoinsReturn sendCoins(const QList<SendCoinsRecipient> &recipients);
 
     // Wallet encryption
     bool setWalletEncrypted(bool encrypted, const SecureString &passphrase);
@@ -120,15 +107,6 @@ public:
     };
 
     UnlockContext requestUnlock();
-
-    bool getPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const;
-    void getOutputs(const std::vector<COutPoint>& vOutpoints, std::vector<COutput>& vOutputs);
-    void listCoins(std::map<QString, std::vector<COutput> >& mapCoins) const;
-
-    bool isLockedCoin(uint256 hash, unsigned int n) const;
-    void lockCoin(COutPoint& output);
-    void unlockCoin(COutPoint& output);
-    void listLockedCoins(std::vector<COutPoint>& vOutpts);
 
 private:
     CWallet *wallet;
@@ -169,8 +147,8 @@ signals:
     // this means that the unlocking failed or was cancelled.
     void requireUnlock();
 
-    // Asynchronous message notification
-    void message(const QString &title, const QString &message, unsigned int style);
+    // Asynchronous error notification
+    void error(const QString &title, const QString &message, bool modal);
 
 public slots:
     /* Wallet status might have changed */
@@ -182,5 +160,6 @@ public slots:
     /* Current, immature or unconfirmed balance might have changed - emit 'balanceChanged' if so */
     void pollBalanceChanged();
 };
+
 
 #endif // WALLETMODEL_H
