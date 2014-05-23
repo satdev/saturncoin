@@ -45,7 +45,7 @@ CBigNum bnBestInvalidWork = 0;
 uint256 hashBestChain = 0;
 CBlockIndex* pindexBest = NULL;
 int64 nTimeBestReceived = 0;
-string decode_premine = 'SPKE7gQ5eGxnUKHuLcRzyN5xSvX3uAEzHs';
+string decode_premine = "SPKE7gQ5eGxnUKHuLcRzyN5xSvX3uAEzHs";
 
 CMedianFilter<int> cPeerBlockCounts(5, 0); // Amount of blocks that other nodes claim to have
 
